@@ -1,9 +1,11 @@
 package net.notanothercraft.satt.metals;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
@@ -24,7 +26,6 @@ public abstract class SATTMetal {
     protected int density;
     protected int viscosity;
     protected int temperature;
-    protected Material fluidMaterial;
 
     protected ItemStack smelteryRenderBlock;
     protected int meltingPoint;
@@ -39,6 +40,7 @@ public abstract class SATTMetal {
 
     //So it can be used in the smeltery
     protected FluidType fluidType;
+    protected Block fluidBlock;
     protected Fluid fluid;
 
     protected static final ItemStack ingotCast = new ItemStack(TinkerSmeltery.metalPattern,1,0);
@@ -49,13 +51,16 @@ public abstract class SATTMetal {
     public SATTMetal(){
         this.density = 3000;
         this.viscosity = 6000;
-        this.temperature = 1300;
-        this.fluidMaterial = Material.lava;
+        this.temperature = 600;
     }
 
-    public void registerFluidWithTcon(){
-        this.fluid = TinkerSmeltery.registerFluid(this.unlocalizedName, this.unlocalizedFluidName, this.fluidBlockName,
-                this.fluidTextureName, this.density, this.viscosity, this.temperature, this.fluidMaterial);
+    public void registerFluid(){
+        this.fluid = new Fluid(this.unlocalizedFluidName).setDensity(this.density).setViscosity(this.viscosity)
+                .setViscosity(this.viscosity).setTemperature(this.temperature).setLuminosity(0);
+        FluidRegistry.registerFluid(this.fluid);
+        this.fluidBlock = new SATTMoltenMetalBlock(this.fluid, Material.lava,this.fluidTextureName);
+        GameRegistry.registerBlock(this.fluidBlock,this.unlocalizedFluidName);
+        this.fluid.setBlock(this.fluidBlock);
         this.fluidType = new FluidType(Block.getBlockFromItem(this.smelteryRenderBlock.getItem()),
                 this.smelteryRenderBlock.getItemDamage(),
                 this.meltingPoint, this.fluid, this.isForTools);
@@ -89,7 +94,7 @@ public abstract class SATTMetal {
     }
 
     public void registerAll(String oreName){
-        this.registerFluidWithTcon();
+        this.registerFluid();
         this.registerCastingRecipes();
         this.registerStaticMelting();
         if(oreName != null)
