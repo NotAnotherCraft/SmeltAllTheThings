@@ -3,6 +3,7 @@ package net.notanothercraft.satt.metals;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -117,7 +118,8 @@ public abstract class SATTMetal {
             fluidCost = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(new ItemStack(TinkerSmeltery.metalPattern,1,i+1))
             * TConstruct.ingotLiquidValue >> 1;
             tableCasting.addCastingRecipe(currentPart, new FluidStack(this.fluid, fluidCost),new ItemStack(TinkerSmeltery.metalPattern,1,i+1),this.castingDelay);
-            Smeltery.addMelting(currentPart,this.meltingPoint,new FluidStack(this.fluid, fluidCost));
+            Smeltery.addMelting(currentPart,blockItem == null ? Blocks.stone : Block.getBlockFromItem(blockItem.getItem())
+                    ,blockItem.getItemDamage(),meltingPoint, new FluidStack(this.fluid, fluidCost));
         }
     }
 

@@ -18,7 +18,7 @@ public class SATTMod {
     private static SATTMod INSTANCE;
     private Logger modLog;
 
-    private final int baseMetalID = 100;
+    private final int baseMetalID = 500;
 
     private Collection<SATTHook> hooks = new ArrayList<SATTHook>();
 
