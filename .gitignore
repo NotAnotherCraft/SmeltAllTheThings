@@ -1,0 +1,14 @@
+#gradle
+/.gradle
+/build
+/deps/*
+/minecraft
+/out
+
+#java
+*.class
+
+#intelij
+*.iml
+*.ipr
+*.iws

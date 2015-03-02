@@ -2,7 +2,9 @@
     "modListVersion": 2,
     "modList": [
         {
-            "modid": "SATT",
+            "modid": "${modid}",
+            "version" : "${version}",
+            "mcversion" : "${mcversion}",
             "name": "Smelt All The Things",
             "requiredMods": ["Forge", "TConstruct"],
             "dependencies": ["TConstruct", "Botania"]
