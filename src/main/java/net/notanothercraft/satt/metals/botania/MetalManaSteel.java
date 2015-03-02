@@ -14,8 +14,8 @@ public class MetalManaSteel extends SATTMetal {
         super();
 
         this.metalOffset = 1;
-        this.unlocalizedName = "satt.botania.manasteel";
-        this.unlocalizedFluidName = "satt.botania.manasteel.molten";
+        this.unlocalizedName = "satt.metal.botania.manasteel";
+        this.unlocalizedFluidName = "satt.metal.botania.manasteel.molten";
         this.fluidBlockName = "molten_manasteel";
         this.fluidTextureName = "molten_manasteel";
         this.castingDelay = 80;
@@ -23,7 +23,7 @@ public class MetalManaSteel extends SATTMetal {
 
         this.toolMaterial = new ToolMaterial(
                 "botania.manasteel",
-                "botania.manasteel",
+                "satt.metal.botania.manasteel.part",
                 /*Harvest Level*/ 1,
                 /*Durability*/ 1,
                 /*Mining Speed*/ 1,

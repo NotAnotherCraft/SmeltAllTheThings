@@ -1,2 +1,7 @@
-fluid.satt.botania.manasteel.molten=Molten Manasteel
-satt.botania.manasteel.molten=Manasteel
+fluid.satt.metal.botania.manasteel.molten=Molten Manasteel
+satt.metal.botania.manasteel.molten=Manasteel
+satt.metal.botania.manasteel.part=Manasteel
+
+fluid.satt.metal.botania.terrasteel.molten=Molten Terrasteel
+satt.metal.botania.terrasteel.molten=Terrasteel
+satt.metal.botania.terrasteel.part=Terrasteel

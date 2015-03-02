@@ -123,6 +123,8 @@ public abstract class SATTMetal {
                     * TConstruct.ingotLiquidValue >> 1;
             tableCasting.addCastingRecipe(currentPart, new FluidStack(this.fluid, fluidCost), new ItemStack(TinkerSmeltery.metalPattern, 1, i + 1), this.castingDelay);
             //Smeltery.addMelting(this.fluidType,currentPart,(-100 + 25*fluidCost/(TConstruct.ingotLiquidValue >> 1)),fluidCost); //TODO: Later
+            /*Smeltery.addMelting(currentPart,Block.getBlockFromItem(smelteryRenderBlock.getItem()), smelteryRenderBlock.getItemDamage(),meltingPoint,
+                    new FluidStack(this.fluid, fluidCost));*/
         }
     }
 
