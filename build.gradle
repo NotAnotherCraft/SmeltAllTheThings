@@ -9,13 +9,17 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        jcenter()
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'de.undercouch:gradle-download-task:1.2'
     }
 }
 
 apply plugin: 'forge'
+apply plugin: 'de.undercouch.download'
+import de.undercouch.gradle.tasks.download.Download
 
 // Load configuration file
 ext.configFile = file "build.properties"
@@ -50,25 +54,22 @@ repositories {
 
 task(downloadDeps)
 
-task(downloadBotania){
-    def f = file "deps/Botania r${config.botania_version}-deobf.jar"
-    if(!f.exists()){
-        new URL("http://botaniamod.net/files/deobf/Botania%20r${config.botania_version}-deobf.jar").withInputStream{
-                i -> f.withOutputStream{it << i}
-        }
-    }
+task downloadBotania(type: Download){
+    src "http://botaniamod.net/files/deobf/Botania%20r${config.botania_version}-deobf.jar"
+    dest "deps/Botania r${config.botania_version}-deobf.jar"
+    overwrite false
 }
 
 
 downloadDeps.dependsOn downloadBotania
 
-compile.depndsOn downloadDeps
+compileJava.dependsOn downloadDeps
 
 
 
 dependencies {
 	compile "tconstruct:TConstruct:${config.minecraft_version}-${config.tconstruct_version}:deobf"
-    files (dir: "deps", include: "Botania r${config.botania_version}-deobf.jar")
+    compile files("deps/Botania r${config.botania_version}-deobf.jar")
 }
 
 processResources
