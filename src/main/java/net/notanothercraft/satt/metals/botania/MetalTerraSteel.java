@@ -22,8 +22,8 @@ public class MetalTerraSteel extends SATTMetal {
         this.meltingPoint = 1000;
 
         this.toolMaterial = new ToolMaterial(
-                "botania.manasteel",
-                "botania.manasteel",
+                "botania.terrasteel",
+                "botania.terrasteel",
                 /*Harvest Level*/ 1,
                 /*Durability*/ 1,
                 /*Mining Speed*/ 1,
