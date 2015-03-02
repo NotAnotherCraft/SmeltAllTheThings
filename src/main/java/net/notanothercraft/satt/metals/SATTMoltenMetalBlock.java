@@ -23,8 +23,8 @@ public class SATTMoltenMetalBlock extends BlockFluidClassic {
 
     @Override
     public void registerBlockIcons(IIconRegister iconRegister) {
-        icons[0] = iconRegister.registerIcon("saat:"+texturename);
-        icons[1] = iconRegister.registerIcon("saat:"+texturename+"_flow");
+        icons[0] = iconRegister.registerIcon("satt:"+texturename);
+        icons[1] = iconRegister.registerIcon("satt:"+texturename+"_flow");
         this.getFluid().setIcons(icons[0], icons[1]);
     }
 

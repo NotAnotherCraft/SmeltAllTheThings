@@ -7,17 +7,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.notanothercraft.satt.SATTMod;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
+import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.tools.TinkerTools;
 
-/**
- * Created by KJ4IPS on 3/1/2015.
- */
 public abstract class SATTMetal {
+    protected int metalOffset;
     protected String unlocalizedName;
 
     protected String unlocalizedFluidName;
@@ -29,7 +31,8 @@ public abstract class SATTMetal {
 
     protected ItemStack smelteryRenderBlock;
     protected int meltingPoint;
-    protected boolean isForTools;
+
+    protected ToolMaterial toolMaterial;
 
 
     //Used when casting, and melting if OreDict is not used for that
@@ -63,13 +66,13 @@ public abstract class SATTMetal {
         this.fluid.setBlock(this.fluidBlock);
         this.fluidType = new FluidType(Block.getBlockFromItem(this.smelteryRenderBlock.getItem()),
                 this.smelteryRenderBlock.getItemDamage(),
-                this.meltingPoint, this.fluid, this.isForTools);
+                this.meltingPoint, this.fluid, toolMaterial != null);
     }
 
     public void registerCastingRecipes(){
         if(nuggetItem != null)
             tableCasting.addCastingRecipe(this.nuggetItem, new FluidStack(this.fluid, TConstruct.nuggetLiquidValue),
-                    nuggetcast,false, 80);
+                    nuggetcast,false, this.castingDelay);
         if(ingotItem != null)
             tableCasting.addCastingRecipe(this.ingotItem, new FluidStack(this.fluid, TConstruct.ingotLiquidValue),
                     ingotCast, false, this.castingDelay);
@@ -99,6 +102,23 @@ public abstract class SATTMetal {
         this.registerStaticMelting();
         if(oreName != null)
         this.registerOreDictMelting(oreName);
-    };
+        registerToolMaterial();
+    }
+
+    public void registerToolMaterial(){
+        int tmID = SATTMod.getInstance().getBaseMetalID() + this.metalOffset;
+        if(this.toolMaterial == null) return;
+        TConstructRegistry.addtoolMaterial(tmID,toolMaterial);
+
+        ItemStack currentPart;
+        int fluidCost;
+        for(int i = 0; i < TinkerTools.patternOutputs.length; i++){
+            currentPart = new ItemStack(TinkerTools.patternOutputs[i],1,tmID);
+            fluidCost = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(new ItemStack(TinkerSmeltery.metalPattern,1,i+1))
+            * TConstruct.ingotLiquidValue >> 1;
+            tableCasting.addCastingRecipe(currentPart, new FluidStack(this.fluid, fluidCost),new ItemStack(TinkerSmeltery.metalPattern,1,i+1),this.castingDelay);
+            Smeltery.addMelting(currentPart,this.meltingPoint,new FluidStack(this.fluid, fluidCost));
+        }
+    }
 
 }

@@ -18,6 +18,8 @@ public class SATTMod {
     private static SATTMod INSTANCE;
     private Logger modLog;
 
+    private final int baseMetalID = 100;
+
     private Collection<SATTHook> hooks = new ArrayList<SATTHook>();
 
     @Mod.EventHandler
@@ -35,8 +37,9 @@ public class SATTMod {
         }
     }
 
-    public SATTMod getInstance() {
+    public static SATTMod getInstance() {
         return INSTANCE;
     }
     public static Logger getLogger() {return INSTANCE.modLog;}
+    public int getBaseMetalID() {return baseMetalID;}
 }
