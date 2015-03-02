@@ -3,7 +3,6 @@ package net.notanothercraft.satt.metals;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -102,7 +101,7 @@ public abstract class SATTMetal {
         this.registerCastingRecipes();
         this.registerStaticMelting();
         if(oreName != null)
-        this.registerOreDictMelting(oreName);
+            this.registerOreDictMelting(oreName);
         registerToolMaterial();
     }
 
@@ -113,13 +112,12 @@ public abstract class SATTMetal {
 
         ItemStack currentPart;
         int fluidCost;
-        for(int i = 0; i < TinkerTools.patternOutputs.length; i++){
-            currentPart = new ItemStack(TinkerTools.patternOutputs[i],1,tmID);
-            fluidCost = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(new ItemStack(TinkerSmeltery.metalPattern,1,i+1))
-            * TConstruct.ingotLiquidValue >> 1;
-            tableCasting.addCastingRecipe(currentPart, new FluidStack(this.fluid, fluidCost),new ItemStack(TinkerSmeltery.metalPattern,1,i+1),this.castingDelay);
-            Smeltery.addMelting(currentPart,blockItem == null ? Blocks.stone : Block.getBlockFromItem(blockItem.getItem())
-                    ,blockItem.getItemDamage(),meltingPoint, new FluidStack(this.fluid, fluidCost));
+        for(int i = 0; i < TinkerTools.patternOutputs.length; i++) {
+            currentPart = new ItemStack(TinkerTools.patternOutputs[i], 1, tmID);
+            fluidCost = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(new ItemStack(TinkerSmeltery.metalPattern, 1, i + 1))
+                    * TConstruct.ingotLiquidValue >> 1;
+            tableCasting.addCastingRecipe(currentPart, new FluidStack(this.fluid, fluidCost), new ItemStack(TinkerSmeltery.metalPattern, 1, i + 1), this.castingDelay);
+            //Smeltery.addMelting(this.fluidType,currentPart,(-100 + 25*fluidCost/(TConstruct.ingotLiquidValue >> 1)),fluidCost); //TODO: Later
         }
     }
 

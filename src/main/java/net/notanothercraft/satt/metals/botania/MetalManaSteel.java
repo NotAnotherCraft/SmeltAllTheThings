@@ -18,7 +18,7 @@ public class MetalManaSteel extends SATTMetal {
         this.unlocalizedFluidName = "satt.botania.manasteel.molten";
         this.fluidBlockName = "molten_manasteel";
         this.fluidTextureName = "molten_manasteel";
-        this.castingDelay = 400;
+        this.castingDelay = 80;
         this.meltingPoint = 800;
 
         this.toolMaterial = new ToolMaterial(
