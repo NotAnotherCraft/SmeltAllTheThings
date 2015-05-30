@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Mod(modid="SATT")
+@Mod(name=SATTConstants.name, modid=SATTConstants.modid, version=SATTConstants.version, acceptedMinecraftVersions = SATTConstants.mcversion)
 public class SATTMod {
 
     @Mod.Instance

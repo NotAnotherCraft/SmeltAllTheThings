@@ -30,6 +30,7 @@ configFile.withReader {
 	project.ext.config = new ConfigSlurper().parse configProperties
 }
 
+ext.modid = "SATT"
 version = "${config.minecraft_version}-${config.satt_version}"
 group= "net.notanothercraft.satt" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SmeltAllTheThings"
@@ -37,6 +38,10 @@ archivesBaseName = "SmeltAllTheThings"
 minecraft {
     version = "${config.minecraft_version}-${config.forge_version}"
     runDir = "minecraft"
+    replaceIn "src/main/java/net/notanothercraft/satt/SATTConstants.java"
+    replace '${version}', project.version
+    replace '${mcversion}', project.minecraft.version
+    replace '${modid}', project.modid
 }
 
 
@@ -52,7 +57,7 @@ repositories {
 	}
 }
 
-task(downloadDeps)
+task(downloadDeps) //This empty task exists to contain all non-managed dependancies
 
 task downloadBotania(type: Download){
     src "http://botaniamod.net/files/deobf/Botania%20r${config.botania_version}-deobf.jar"
@@ -60,6 +65,13 @@ task downloadBotania(type: Download){
     overwrite false
 }
 
+task downloadBaubles(type: Download){
+    src "https://dl.dropboxusercontent.com/u/47135879/Baubles-deobf-${config.minecraft_version}-${config.baubles_version}.jar"
+    dest "deps/Baubles-deobf-${config.minecraft_version}-${config.baubles_version}.jar"
+    overwrite false
+}
+
+downloadBotania.dependsOn downloadBaubles
 
 downloadDeps.dependsOn downloadBotania
 
@@ -70,11 +82,13 @@ compileJava.dependsOn downloadDeps
 dependencies {
 	compile "tconstruct:TConstruct:${config.minecraft_version}-${config.tconstruct_version}:deobf"
     compile files("deps/Botania r${config.botania_version}-deobf.jar")
+    compile files("deps/Baubles-deobf-${config.minecraft_version}-${config.baubles_version}.jar")
 }
 
 processResources
 {
     // this will ensure that this task is redone when the versions change.
+    inputs.property "modid", project.modid
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
@@ -83,7 +97,7 @@ processResources
         include 'mcmod.info'
                 
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version':project.version, 'mcversion':project.minecraft.version, 'modid':project.modid
     }
         
     // copy everything else, thats not the mcmod.info

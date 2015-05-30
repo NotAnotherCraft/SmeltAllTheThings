@@ -18,9 +18,13 @@ import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 
+import java.util.ArrayList;
+
 public abstract class SATTMetal {
     protected int metalOffset;
     protected String unlocalizedName;
+
+    protected String odName;
 
     protected String unlocalizedFluidName;
     protected String fluidBlockName;
@@ -50,6 +54,7 @@ public abstract class SATTMetal {
     protected static final ItemStack nuggetcast = new ItemStack(TinkerSmeltery.metalPattern,2,0);
     protected static final LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
     protected static final LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
+
 
     public SATTMetal(){
         this.density = 3000;
@@ -96,12 +101,12 @@ public abstract class SATTMetal {
             Smeltery.addMelting(this.fluidType, this.blockItem, 100, TConstruct.blockLiquidValue);
     }
 
-    public void registerAll(String oreName){
+    public void registerAll(){
         this.registerFluid();
         this.registerCastingRecipes();
         this.registerStaticMelting();
-        if(oreName != null)
-            this.registerOreDictMelting(oreName);
+        if(odName != null)
+            this.registerOreDictMelting(odName);
         registerToolMaterial();
     }
 
