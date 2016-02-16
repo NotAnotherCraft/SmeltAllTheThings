@@ -30,7 +30,7 @@ configFile.withReader {
 	project.ext.config = new ConfigSlurper().parse configProperties
 }
 
-ext.modid = "SATT"
+ext.modid = "satt"
 version = "${config.minecraft_version}-${config.satt_version}"
 group= "net.notanothercraft.satt" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SmeltAllTheThings"
