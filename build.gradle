@@ -12,12 +12,12 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
         classpath 'de.undercouch:gradle-download-task:1.2'
     }
 }
+apply plugin: 'net.minecraftforge.gradle.forge'
 
-apply plugin: 'forge'
 apply plugin: 'de.undercouch.download'
 import de.undercouch.gradle.tasks.download.Download
 
@@ -38,6 +38,8 @@ archivesBaseName = "SmeltAllTheThings"
 minecraft {
     version = "${config.minecraft_version}-${config.forge_version}"
     runDir = "minecraft"
+	mappings = "stable_20"
+	
     replaceIn "src/main/java/net/notanothercraft/satt/SATTConstants.java"
     replace '${version}', project.version
     replace '${mcversion}', project.minecraft.version
@@ -55,10 +57,15 @@ repositories {
 		name 'DVS1'
 		url 'http://dvs1.progwml6.com/files/maven'
 	}
+	
+	// FlatDir repo for non maven'd deps
+	flatDir {
+		dirs 'deps'
+	}
 }
 
 task(downloadDeps) //This empty task exists to contain all non-managed dependancies
-
+/*
 task downloadBotania(type: Download){
     src "http://botaniamod.net/files/deobf/Botania%20r${config.botania_version}-deobf.jar"
     dest "deps/Botania r${config.botania_version}-deobf.jar"
@@ -74,15 +81,15 @@ task downloadBaubles(type: Download){
 downloadBotania.dependsOn downloadBaubles
 
 downloadDeps.dependsOn downloadBotania
-
+*/
 compileJava.dependsOn downloadDeps
 
 
 
 dependencies {
 	compile "tconstruct:TConstruct:${config.minecraft_version}-${config.tconstruct_version}:deobf"
-    compile files("deps/Botania r${config.botania_version}-deobf.jar")
-    compile files("deps/Baubles-deobf-${config.minecraft_version}-${config.baubles_version}.jar")
+    //compile files("deps/Botania r${config.botania_version}-deobf.jar")
+    //compile files("deps/Baubles-deobf-${config.minecraft_version}-${config.baubles_version}.jar")
 }
 
 processResources
