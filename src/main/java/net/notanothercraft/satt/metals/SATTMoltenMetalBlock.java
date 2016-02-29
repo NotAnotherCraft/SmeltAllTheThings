@@ -1,10 +1,6 @@
 package net.notanothercraft.satt.metals;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 
@@ -13,14 +9,14 @@ import net.minecraftforge.fluids.Fluid;
  */
 public class SATTMoltenMetalBlock extends BlockFluidClassic {
     private String texturename;
-    private IIcon icons[] = new IIcon[2];
+    //private IIcon icons[] = new IIcon[2];
 
 
     public SATTMoltenMetalBlock(Fluid fluid, Material material, String texturename) {
         super(fluid, material);
         this.texturename = texturename;
     }
-
+/*  //removed for testing
     @Override
     public void registerBlockIcons(IIconRegister iconRegister) {
         icons[0] = iconRegister.registerIcon("satt:"+texturename);
@@ -35,4 +31,5 @@ public class SATTMoltenMetalBlock extends BlockFluidClassic {
             return icons[0];
         return icons[1];
     }
+    */
 }

@@ -1,9 +1,9 @@
 package net.notanothercraft.satt;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.notanothercraft.satt.hooks.SATTBotaniaHook;
 import net.notanothercraft.satt.hooks.SATTHook;
 import org.apache.logging.log4j.Logger;
